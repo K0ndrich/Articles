@@ -12,7 +12,8 @@ class Articles(models.Model):
     # указывает какие данные будут выводиться , когда берем одну запись
     def __str__(self):
         # ""%s: %s-%s," улучшеная копия f-строки
-        return "%s: %s-%s" % (self.data, self.name, self.text)
+        # "%s: %s-%s" % (self.create_date, self.name, self.text)
+        return self.name
 
     # class Meta позволяет изменять представлнение данных из нашей таблици
     class Meta:

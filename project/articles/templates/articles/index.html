@@ -13,24 +13,37 @@
 </head>
 
 <body>
+
     <div class="container mt-4">
-        <h1>Hello World</h1>
+        <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item">
+                {% url "home" as url_home %}
+                <a class="nav-link {% if url_home == request.path %} active {% endif %} " aria-current="page"
+                    href="{{url_home}}">Главная Страница</a>
+            </li>
+            <li class="nav-item">
+                {% url "edit_page" as url_edit_page %}
+                <a class="nav-link {% if url_edit_page == request.path %} active {% endif %}"
+                    href="{{url_edit_page}}">Создание/Редактирование/Удаление</a>
+            </li>
+
+        </ul>
 
 
-
-
+        {% block content%}
+        <h1>Мои Статьи</h1>
         {% for i in list_articles %}
         <ul class="list-group mt-4">
             <li class="list-group-item">
                 <b>{{i.create_date}}</b>
-                <span>{{i.name}}</span>
-                <span>{{i.text}}</span>
-                <div class="float-right mr-3"><a href="#">Перейти к Статье</a></div>
+                <span class="m-2">{{i.name}}</span>
+                <span>{{i.text |truncatewords:10 }}</span>
+                <span class="float-end mr-3"><a href="/detail/{{i.id}}">Перейти к Статье</a></span>
             </li>
         </ul>
-
-
         {% endfor %}
+
+        {% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
